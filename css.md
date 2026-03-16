@@ -1,0 +1,168 @@
+# CSS Guide for any AI reading this
+
+version = 1
+
+## Naming classes:
+
+1) All classes must be in lowercase, separated by "-" (without spaces)
+2) Try to not repeat symbols
+3) Do not use "_"
+4) Names should be short, usually: component + html element
+
+```
+Good:
+.home-div
+
+Bad:
+.home__Div
+```
+
+## Properties order:
+
+If one propertie is not listed here, try to add it in a section it could belong
+
+```
+.test {
+    // Transform properties
+    flex
+    flex-shrink
+    width
+    max-width
+    padding
+    margin
+    position
+    top
+    right
+    inset
+    transform
+    z-index
+    vertical-align
+
+    // Display properties
+    display
+    flex-flow (row nowrap)
+    justify-content
+    align-items
+    gap
+    grid-template-columns
+
+    // Content properties
+    content
+    box-sizing
+    overflow
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-behavior
+    word-wrap
+    overflow-wrap
+    white-space
+
+    // Border properties
+    border
+    border-radius
+    border-color
+
+    // Background properties
+    outline
+    background
+    background-color
+    box-shadow
+
+    // Image properties
+    object-fit
+    aspect-ratio
+    cursor
+    opacity
+    visibility
+    filter
+    mix-blend-mode
+    pointer-events
+    -webkit-appearance
+
+    // Text properties
+    color
+    font-size
+    text-align
+    font-family
+    font-weight
+    line-height
+    text-decoration
+    text-transform
+    list-style
+    letter-spacing
+    text-shadow
+    line-clamp
+    accent-color
+
+    // Transition properties
+    transition
+    will-change
+    animation
+}
+```
+
+## @media screen resolutions allowed to use (default is for phones since im using mobile-first structure)
+
+```
+/* Phones */
+
+Default starting point
+
+/* Small tablets */
+
+@media screen and (min-width: 480px) {}
+
+/* Large tablets */
+
+@media screen and (min-width: 768px) {}
+
+/* Laptops */
+
+@media screen and (min-width: 1024px) {}
+
+/* Desktop */
+
+@media screen and (min-width: 1200px) {}
+```
+
+## For pseudo-classes (like links and buttons), follow this pattern when available (hover must be inside @media)
+
+```
+:link    { }
+:visited { }
+:focus-visible { }
+@media (hover: hover) {
+    :hover {
+
+    }
+}
+:active  { }
+:disabled { }
+```
+
+## All variables must be inside :root
+
+If this is a React+Vite project, it should be inside /frontend/src/index.css
+If this is a Nextjs project, it should be inside /frontend/src/globals.css
+
+```
+:root {
+    --white: white
+    --black: black
+}
+```
+
+## Try not to repeat code/css properties that have already been established in a parent and that affects all its children
+
+For example, if it was declared:
+
+```
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+```
+
+Then there's no need to add box-sizing again to a parent (unless it's a very specific and rare case where the box-sizing changes and then it has to be reset), or adding padding/margin: 0
