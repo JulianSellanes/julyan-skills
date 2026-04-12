@@ -2,7 +2,7 @@
 
 version = 2.1
 
-## Create UI Button
+### Create UI Button
 
 There must be a single reusable button component within the project, inside a "src/components/ui" folder.
 When you create a button, make sure the jsx and CSS is similar to the following example:
@@ -31,9 +31,9 @@ export const Button = ({
 
 1. .ui-bttn is the default button, the one that will be on most of the page
 2. className should only be used to make big changes to the button, practically a different button
-3. variant should be used to make specific small changes, for example .small { font-size: 1px; }
+3. variant should be used to make specific small changes, for example `.small { font-size: 1px; }`
 
-## Create UI Icon
+### Create UI Icon
 
 There must be a single reusable icon component within the project, inside a "src/components/ui" folder.
 When you create an icon, make sure the jsx and CSS is similar to the following example:
@@ -143,7 +143,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 ```
 
-## Create Dropdown
+### Create Dropdown
 
 There must be a single reusable dropdown component within the project, inside a "src/components/ui" folder.
 When you create a dropdown, make sure the jsx and CSS is similar to the following example:
@@ -199,7 +199,7 @@ When you create a dropdown, make sure the jsx and CSS is similar to the followin
 }
 ```
 
-## Create Footer
+### Create Footer
 
 When you create the footer component, make sure the jsx and CSS is similar to the following example:
 
@@ -220,4 +220,3 @@ When you create the footer component, make sure the jsx and CSS is similar to th
     </p>
 </footer>
 ```
-
