@@ -1,6 +1,6 @@
 # UI Components Guide for any AI reading this
 
-version = 2.1
+version = 2.2
 
 ### Create UI Button
 
@@ -121,6 +121,7 @@ export const Icon = ({ name = "", className = "", ...props }) => {
     display: inline-block;
 
     line-height: 1;
+    pointer-events: none;
 }
 
 .ui-icon-svg {
