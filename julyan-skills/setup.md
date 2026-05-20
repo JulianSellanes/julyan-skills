@@ -1,6 +1,6 @@
 # Project Setup Guide for any AI reading this
 
-version = 1.0
+version = 1.1
 
 ## React + Vite
 
@@ -37,11 +37,11 @@ monorepo-name/
 corepack enable pnpm
 ```
 
-Before continuing, check for the latest official stable version.
+Before continuing, check for the latest official stable version.  
 If the latest official version was released more than a day ago, use:
 
 ```bash
-corepack use pnpm@latest-11
+corepack use pnpm@latest
 ```
 
 Otherwise, pin the previous stable version (that was uploaded more than a day ago):
@@ -64,7 +64,7 @@ Notes:
     "version": "1.0.0",
     "type": "module",
     "private": true,
-    "packageManager": "pnpm@11.1.2",
+    "packageManager": "pnpm@11.X.X",
     "scripts": {
         "dev:frontend": "pnpm --filter frontend dev"
     }
