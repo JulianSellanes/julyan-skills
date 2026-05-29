@@ -1,10 +1,11 @@
 # Project Setup Guide for any AI reading this
 
-version = 1.1
+version = 1.2
 
 ## React + Vite
 
 ### Structure overview
+
 ```
 monorepo-name/
     backend/
@@ -24,10 +25,16 @@ monorepo-name/
         index.html
         package.json
         vite.config.js
+    julyan-skills/
+    scripts/
     package.json
     pnpm-workspace.yaml
     pnpm-lock.yaml
 ```
+
+Notes:
+- Follow the instructions in the exact specific order they are given.
+- Do not "create all the files first, then run the commands," or "run all the commands first, then create the files." Do each one according to the instructions. If it first tells you to run a command, run that command; if it then tells you to create a file, create the file; if it then tells you to edit a file, edit that file; if it then tells you to run another command, run that command.
 
 ### Setup pnpm
 
@@ -37,7 +44,8 @@ monorepo-name/
 corepack enable pnpm
 ```
 
-Before continuing, check for the latest official stable version.  
+2) Research/check in the web for the latest official stable version of pnpm.
+ 
 If the latest official version was released more than a day ago, use:
 
 ```bash
@@ -70,6 +78,9 @@ Notes:
     }
 }
 ```
+
+Notes:
+- $monorepo-name must be the same name as the repo/root folder
 
 2) Create pnpm-workspace.yaml, it should look like this:
 
@@ -241,7 +252,41 @@ graphify-out/.graphify_*
 }
 ```
 
-6) Create src/main.jsx, it should look like this:
+6) Edit eslint.config.js and vite.config.js, make sure to replace the characters single quote (') with double quote ("):
+
+```js
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
+
+export default defineConfig([
+    globalIgnores(["dist", "scripts"]),
+    {
+        files: ["**/*.{js,jsx}"],
+        extends: [
+            js.configs.recommended,
+            reactHooks.configs.flat.recommended,
+            reactRefresh.configs.vite,
+        ],
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
+            parserOptions: {
+            ecmaVersion: "latest",
+            ecmaFeatures: { jsx: true },
+            sourceType: "module",
+            },
+        },
+        rules: {
+            "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
+        },
+    },
+])
+```
+
+7) Create src/main.jsx, it should look like this:
 
 ```jsx
 import "./index.css";
@@ -254,7 +299,7 @@ createRoot(document.getElementById("root")).render(
 )
 ```
 
-7) Create src/index.css, it should look like this:
+8) Create src/index.css, it should look like this:
 
 ```css
 * {
@@ -305,7 +350,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 ```
 
-8) Create src/App.jsx, it should look like this:
+9) Create src/App.jsx, it should look like this:
 
 ```jsx
 import { useEffect, useState } from "react";
@@ -321,7 +366,7 @@ export const App = () => {
 }
 ```
 
-9) Create src/customScroll.css, it should look like this:
+10) Create src/customScroll.css, it should look like this:
 
 ```css
 .custom-scroll {
@@ -396,7 +441,7 @@ export const App = () => {
 }
 ```
 
-10) Run in terminal:
+11) Run in terminal:
 
 ```bash
 mkdir -p frontend/public/assets frontend/public/icons 
@@ -418,4 +463,5 @@ mkdir -p backend/src/lambdas
 pnpm install
 ```
 
-Do not run ```pnpm approve-builds``` after, the user must do it
+Do not run ```pnpm approve-builds``` after, the user must do it.
+Do not run ```graphify update . ``` if it is available.
