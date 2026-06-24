@@ -1,6 +1,6 @@
 # UI Components Guide for any AI reading this
 
-version = 2.2
+version = 2.3
 
 ### Create UI Button
 
@@ -18,11 +18,11 @@ export const Button = ({
     children,
     ...buttonProps
 }) => {
-    const cleanClassName = className?.trim()?.length ? className.trim() : "ui-bttn";
-    const cleanVariantClass = variant?.trim()?.length ? ` ${variant.trim()}` : "";
+    const cleanClassName = className ? ` ${className.trim()}` : "ui-bttn";
+    const cleanVariant = variant ? ` ${variant.trim()}` : "";
 
     return (
-        <button className={`${cleanClassName}${cleanVariantClass}`} {...buttonProps}>
+        <button className={`${cleanClassName}${cleanVariant}`} {...buttonProps}>
             {children}
         </button>
     );
@@ -44,21 +44,27 @@ When you create an icon, make sure the jsx and CSS is similar to the following e
 import "./Icon.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    faAngleDown,
     faBars,
     faEye,
     faEyeSlash,
     faXmark,
+    faUser,
+    faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
 const ICONS = {
+    angleDown: faAngleDown,
     bars: faBars,
     eye: faEye,
     eyeSlash: faEyeSlash,
-    xTwitter: faXTwitter,
     xmark: faXmark,
+    user: faUser,
+    arrowLeft: faArrowLeft,
+    xTwitter: faXTwitter,
 };
 
 export const Icon = ({ name = "", className = "", ...props }) => {
@@ -152,51 +158,123 @@ When you create a dropdown, make sure the jsx and CSS is similar to the followin
 **Dropdown.jsx:**
 
 ```jsx
-<select id="sort" className="sort-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-    <option value="value1">Option1</option>
-</select>
+import "./Dropdown.css";
+import { Icon } from "./Icon.jsx";
+
+export const Dropdown = ({
+    id = "",
+    label = "",
+    options = [],
+    paragraph = null,
+    className = "",
+    ...selectProps
+}) => {
+    const hasLabel = label !== null && label !== undefined && label !== "";
+    const cleanClassName = className ? ` ${className.trim()}` : "";
+
+    return (
+        <div className="dropdown-item">
+            {hasLabel && (
+                <label htmlFor={id || undefined}>
+                    {label}
+                </label>
+            )}
+
+            <div className="dropdown-control">
+                <select id={id || undefined} className={`dropdown-select${cleanClassName}`} {...selectProps}>
+                    {options.map((option) => {
+                        if (typeof option === "string") {
+                            return (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            );
+                        }
+
+                        const value = String(option?.value || "");
+                        return (
+                            <option key={value} value={value}>
+                                {option?.label ?? value}
+                            </option>
+                        );
+                    })}
+                </select>
+                <Icon name="angleDown" className="dropdown-caret" />
+            </div>
+
+            {typeof paragraph === "string" ? <p>{paragraph}</p> : paragraph}
+        </div>
+    );
+};
 ```
 
 **Dropdown.css:**
 
 ```css
-.sort-select {
-    flex: 1;
+.dropdown-item {
     width: 100%;
-    max-width: 26rem;
-    min-height: 4.4rem;
-    padding: 1.1rem 3.4rem 1.1rem 1.2rem;
 
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.6rem;
+}
+
+.dropdown-item label {
+    color: var(--white);
+    font-size: 1.2rem;
+}
+
+.dropdown-control {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-select {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+
+    border: none;
+    border-radius: var(--radius-sm);
 
     outline: none;
-
-    background-color: var(--bg-input);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffe066' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1.2rem center;
-    background-size: 1.4rem 1.4rem;
+    background: var(--grey);
+    box-shadow: 0 .3rem 0 0 var(--grey-dark);
 
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
 
-    color: var(--color);
-    font-size: 1.6rem;
-    font-weight: 800;
-    line-height: 1.1;
+    color: var(--white);
+    font-size: 1.4rem;
 
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.sort-select:focus {
-    border-color: var(--gold);
+.dropdown-caret {
+    position: absolute;
+    top: 50%;
+    right: 1.2rem;
+    transform: translateY(-50%);
+
+    color: var(--white);
+    font-size: 1.4rem;
 }
 
-.sort-select:disabled {
+.dropdown-select:disabled {
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.6;
+}
+
+.dropdown-select option {
+    background: var(--black);
+
+    color: var(--white);
+}
+
+.dropdown-item p {
+    color: var(--white);
+    font-size: 1.2rem;
+    text-align: left;
 }
 ```
 
