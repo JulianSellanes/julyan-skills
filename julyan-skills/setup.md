@@ -1,6 +1,6 @@
 # Project Setup Guide for any AI reading this
 
-version = 1.2
+version = 1.3
 
 ## React + Vite
 
@@ -117,9 +117,9 @@ pnpm create vite frontend --template react
 ```
 
 2) Remove this files in the frontend folder:
+- node_modules
 - README.md
 - public/*
-- node_modules
 - src/*
 
 3) Edit .gitignore, it should look like this:
@@ -274,9 +274,9 @@ export default defineConfig([
             ecmaVersion: 2020,
             globals: globals.browser,
             parserOptions: {
-            ecmaVersion: "latest",
-            ecmaFeatures: { jsx: true },
-            sourceType: "module",
+                ecmaVersion: "latest",
+                ecmaFeatures: { jsx: true },
+                sourceType: "module",
             },
         },
         rules: {
